@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<title>W02: Task 3</title>
+	</head>
+
+	<body>
+		<p> v0 : 
+			<input id="x0" type="number" value="1" />
+			<input id="y0" type="number" value="1" />
+			<input id="z0" type="number" value="1" />			
+		</p>
+
+		<p> v1 : 
+			<input id="x1" type="number" value="2" />
+			<input id="y1" type="number" value="3" />
+			<input id="z1" type="number" value="4" />			
+		</p>
+
+		<p> v2 : 
+			<input id="x2" type="number" value="0" />
+			<input id="y2" type="number" value="3" />
+			<input id="z2" type="number" value="6" />
+		</p>
+
+		<input type="button" onclick="exec()" value="Show Result" />
+		<p id="res"></p>
+
+		<script src="vec3.js"></script>
+		<script>
+			function dist(v0, v1) {
+				return Math.sqrt(Math.pow((v0.x - v1.x), 2) + Math.pow((v0.y - v1.y), 2) + Math.pow((v0.z - v1.z), 2));
+			}
+
+			function AreaOfTriange(v0, v1, v2){
+				var a = dist(v0, v1);
+				var b = dist(v0, v2);
+				var c = dist(v1, v2);
+
+
+				var t = (a + b + c) / 2;
+
+				return Math.sqrt(t * (t-a) * (t-b) * (t-c));
+			}
+
+			function exec(){
+				var x0 = document.getElementById("x0").value, y0 = document.getElementById("y0").value, z0 = document.getElementById("z0").value;
+					
+				var x1 = document.getElementById("x1").value, y1 = document.getElementById("y1").value, z1 = document.getElementById("z1").value;
+
+				var x2 = document.getElementById("x2").value, y2 = document.getElementById("y2").value, z2 = document.getElementById("z2").value;
+
+				x0 = parseFloat(x0); y0 = parseFloat(y0); z0 = parseFloat(z0);
+				x1 = parseFloat(x1); y1 = parseFloat(y1); z1 = parseFloat(z1);
+				x2 = parseFloat(x2); y2 = parseFloat(y2); z2 = parseFloat(z2);
+
+				var v0 = new Vec3(x0, y0, z0);
+				var v1 = new Vec3(x1, y1, z1);
+				var v2 = new Vec3(x2, y2, z2);
+				var S = AreaOfTriange(v0, v1, v2);
+				document.getElementById("res").innerHTML = "面積 : " + S;
+			}
+
+		</script>
+
+	</body>
+
+
+</html>
