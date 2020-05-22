@@ -21,37 +21,122 @@ function main()
     renderer.setSize( width, height );
     document.body.appendChild( renderer.domElement );
 
+    var surface_num = 12;
+
+    var vertices = [];
+    var i = 0;
+    
+    vertices.push([
+        [ -1,  1, 1 ], // v0
+        [ -1, -1, 1 ], // v1
+        [  1, -1, 1 ]  // v2
+    ]);
+
+    vertices.push([
+        [ -1,  1, 1 ], // v0
+        [  1, -1, 1 ], // v1
+        [  1,  1, 1 ]  // v2
+    ]);
+
+    vertices.push([
+        [ -1,  1, -1 ], // v0
+        [  -1, 1, 1 ], // v1
+        [  1,  1, 1 ]  // v2
+    ]);
+
+    vertices.push([
+        [ -1,  1, -1 ], // v0
+        [  1,  1, 1 ], // v1
+        [  1,  1, -1 ]  // v2
+    ]);
+
+    vertices.push([
+        [  1,  1,  1 ], // v0
+        [  1, -1,  1 ], // v1
+        [  1, -1, -1 ]  // v2
+    ]);
+
+    vertices.push([
+        [  1,  1, 1 ], // v0
+        [  1, -1, -1 ], // v1
+        [  1,  1, -1 ]  // v2
+    ]);
+
+    vertices.push([
+        [  -1,  1, -1 ], // v0
+        [  -1, -1, -1 ], // v1
+        [  -1,  -1, 1 ]  // v2
+    ]);
+
+    vertices.push([
+        [  -1,  1, -1 ], // v0
+        [  -1, -1, 1 ], // v1
+        [  -1,  1, 1 ]  // v2
+    ]);
+
+    vertices.push([
+        [  -1,  -1, 1 ], // v0
+        [  -1, -1, -1 ], // v1
+        [  1,  -1, -1 ]  // v2
+    ]);
+
+    vertices.push( [
+        [  -1,  -1, 1 ], // v0
+        [  1, -1, -1 ], // v1
+        [  1,  -1, 1 ]  // v2
+    ]);
+
+    vertices.push( [
+        [  1,  1, -1 ], // v0
+        [  1, -1, -1 ], // v1
+        [  -1,  -1, -1 ]  // v2
+    ]);
+
+    vertices.push( [
+        [  1,  1, -1 ], // v0
+        [  -1, -1, -1 ], // v1
+        [  -1,  1, -1 ]  // v2
+    ]);
 
 
-    var vertices = [
-        [ -1,  1, 0 ], // v0
-        [ -1, -1, 0 ], // v1
-        [  1, -1, 0 ]  // v2
-    ];
+    var faces = [];
+    for (i = 0; i < surface_num * 3; i += 3) {
+        faces.push([i, i+1, i+2]);
+    }
 
-    var faces = [
-        [ 0, 1, 2 ] // f0
-    ];
-
-    var v0 = new THREE.Vector3().fromArray( vertices[0] );
-    var v1 = new THREE.Vector3().fromArray( vertices[1] );
-    var v2 = new THREE.Vector3().fromArray( vertices[2] );
-    var id = faces[0];
-    var f0 = new THREE.Face3( id[0], id[1], id[2] );
+    var v = [];
+    var f = [];
+    for (i = 0; i < surface_num; i++) {
+        v.push([new THREE.Vector3().fromArray( vertices[i][0] ),
+                new THREE.Vector3().fromArray( vertices[i][1] ),
+                new THREE.Vector3().fromArray( vertices[i][2] )]);
+        
+        f.push(new THREE.Face3( faces[i][0], faces[i][1], faces[i][2] ));
+    }
 
     var geometry = new THREE.Geometry();
-    geometry.vertices.push( v0 );
-    geometry.vertices.push( v1 );
-    geometry.vertices.push( v2 );
-    geometry.faces.push( f0 );
+
+
+    for (i = 0; i < surface_num; i++) {
+        geometry.vertices.push( v[i][0] );
+        geometry.vertices.push( v[i][1] );
+        geometry.vertices.push( v[i][2] );
+        geometry.faces.push(f[i]);
+    }
+
 
     //    var material = new THREE.MeshBasicMaterial();
     var material = new THREE.MeshLambertMaterial();
     material.vertexColors = THREE.FaceColors;
-    geometry.faces[0].color = new THREE.Color( 1, 0, 0 );
+
+    for(i = 0; i < surface_num; i++) {
+        geometry.faces[i].color = new THREE.Color(1, 0, 0);
+    }
+
 
     geometry.computeFaceNormals();
     material.side = THREE.FrontSide;
+    // material.side = THREE.DoubleSide;
 
     var triangle = new THREE.Mesh( geometry, material );
     scene.add( triangle );
@@ -61,8 +146,8 @@ function main()
     function loop()
     {
         requestAnimationFrame( loop );
-        triangle.rotation.x += 0.001;
-        triangle.rotation.y += 0.001;
+        triangle.rotation.x += 0.01;
+        triangle.rotation.y += 0.01;
         renderer.render( scene, camera );
     }
 }

@@ -59,8 +59,8 @@ function main()
     function loop()
     {
         requestAnimationFrame( loop );
-        triangle.rotation.x += 0.001;
-        triangle.rotation.y += 0.001;
+        triangle.rotation.x += 0.01;
+        triangle.rotation.y += 0.01;
         renderer.render( scene, camera );
     }
 }
