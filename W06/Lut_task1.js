@@ -164,8 +164,6 @@ THREE.Lut.prototype = {
 		len = data.length;
 
 		this.map = THREE.ColorMapKeywords[ this.mapname ];
-		console.log(this.map.length)
-		console.log(this.n)
 
 		var k = 0;
 

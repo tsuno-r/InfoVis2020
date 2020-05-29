@@ -48,8 +48,6 @@ function main()
         var B = Math.max( Math.cos( ((S - 0.1) / 0.7) *  Math.PI ), 0.0 );
         var color = new THREE.Color( R, G, B );
         cmap.push( [ S, '0x' + color.getHexString() ] );
-        // console.log(S);
-        // console.log(scale_convert2(S));
     }
 
     // Draw color map
