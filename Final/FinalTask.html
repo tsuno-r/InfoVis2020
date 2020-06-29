@@ -1,0 +1,309 @@
+<html>
+    <head>
+	<title>FinalTask</title>
+    </head>
+	<body style="margin:0">
+		<div>
+			<h1>概要</h1>
+			<div>最終課題としてタスク1を選択し、様々なパラメータを変更す
+				ることができるユーザーインターフェースを作成しました。
+				それぞれのパラメータを変更した後に、「Apply」ボタンをクリック
+				することで、変更を適用することができます。</div>
+			<div>大きく分けて3つの変更を行うことができるように作成しました。</div>
+			<div>1つ目は「Isosurface」に関するパラメータです。パラメータ「Isovalue」では、等値面の値を設定することができます。
+				 等値面の値に応じてカラーマップによってオブジェクトの色が決定します。
+				 パラメータ「Color Map」では、使用するカラーマップを選択することができます。
+				 レインボーカラーマップに加え、赤白カラーマップ、青白カラーマップ、緑白カラーマップを選択できます。
+			</div>
+			<div>2つ目は「Volume Rendering」に関するパラメータです。「Reflection Model」では、Reflection Modelを選択できます。
+				 Lambert Reflection, Phong Reflection, BlinnPhong Reflection, CookTorrance Reflectionを選択することができます。
+				 また、「ka」から「f0」までのパラメータを変更することで、それぞれのReflection Modelの中で使用されるパラメータの値を
+				 変更することができます。 
+			</div>
+			<div>3つ目は「Slice Plane」に関するパラメータです。「Slice」はチェックボックスとなっていて、チェックをするとVolume Dataは見えなくなりますが、代わりにその断面が表示されます。
+				また、「Point」と「Normal」の「x」から「z」までのパラメータを変更することで、どの部分の断面を表示するかを決定することができます。
+
+			</div>
+		</div>
+		<br>
+		<div>
+			<h1>可視化結果</h1>
+			<div id="display" style="width:60%; float: left;"></div>
+			<div id="controller" style="width:40%; float:left; text-align: center;">
+				<div>
+					<h3>Isosurface</h3>
+					<div>
+						<label id="label" style="font-family:Arial;">Isovalue</label>
+						<input type="range" min="0" max="1" step="0.01" value="0.5" id="isovalue" />
+					</div>
+					<div>
+						<label id="label" style="font-family:Arial;">Color Map</label>
+						<select name="color-map" id="color-map">
+							<option>Rainbow</option>
+							<option>RedWhite</option>
+							<option>BlueWhite</option>
+							<option>GreenWhite</option>
+						</select>
+					</div>
+				</div>
+				<br>
+				<div>
+					<h3>Volume Rendering</h3>
+					<div>
+						<label id="label" style="font-family:Arial;">Reflection Model</label>
+						<select name="reflection-model" id="reflection-model">
+							<option>Lambert</option>
+							<option>Phong</option>
+							<option>BlinnPhong</option>
+							<option>CookTrrance</option>
+						</select>
+					</div>
+					<br>
+					<div>
+						<label id="label" style="font-family:Arial;">Parameter</label>
+						<div>
+							<label id="label" style="font-family:Arial;">ka</label>
+							<input type="range" min="0" max="1" step="0.01" value="0.5" id="para_ka" />
+						</div>
+						<div>
+							<label id="label" style="font-family:Arial;">kd</label>
+							<input type="range" min="0" max="1" step="0.01" value="0.5" id="para_kd" />
+						</div>
+						<div>
+							<label id="label" style="font-family:Arial;">ks</label>
+							<input type="range" min="0" max="1" step="0.01" value="0.5" id="para_ks" />
+						</div>
+						<div>
+							<label id="label" style="font-family:Arial;">n</label>
+							<input type="range" min="0" max="100" step="1" value="50" id="para_n" />
+						</div>
+						<div>
+							<label id="label" style="font-family:Arial;">m</label>
+							<input type="range" min="0" max="1" step="0.01" value="0.5" id="para_m" />
+						</div>
+						<div>
+							<label id="label" style="font-family:Arial;">f0</label>
+							<input type="range" min="0" max="1" step="0.01" value="0.5" id="para_f" />
+						</div>
+					</div>
+	
+				</div>
+				<br>
+				<div>
+					<h3>Slice Plane</h3>
+					<div>
+						<label id="label" style="font-family:Arial;">Slice</label>
+						<input type="checkbox" id="slice" value="1">Slice
+					</div>
+					<br>
+					<div>
+						<label id="label" style="font-family:Arial;">Point</label>
+						<div>
+							<label id="label" style="font-family:Arial;">x</label>
+							<input type="range" min="0" max="1" step="0.01" value="0.5" id="para_px" />
+						</div>
+						<div>
+							<label id="label" style="font-family:Arial;">y</label>
+							<input type="range" min="0" max="1" step="0.01" value="0.5" id="para_py" />
+						</div>
+						<div>
+							<label id="label" style="font-family:Arial;">z</label>
+							<input type="range" min="0" max="1" step="0.01" value="0.5" id="para_pz" />
+						</div>
+					</div>
+					<br>
+					<div>
+						<label id="label" style="font-family:Arial;">Normal</label>
+						<div>
+							<label id="label" style="font-family:Arial;">x</label>
+							<input type="range" min="0" max="1" step="0.01" value="0.5" id="para_nx" />
+						</div>
+						<div>
+							<label id="label" style="font-family:Arial;">y</label>
+							<input type="range" min="0" max="1" step="0.01" value="0.5" id="para_ny" />
+						</div>
+						<div>
+							<label id="label" style="font-family:Arial;">z</label>
+							<input type="range" min="0" max="1" step="0.01" value="0.5" id="para_nz" />
+						</div>
+					</div>
+					<br>
+				</div>
+				<button id="change-button" style="font-family:Arial;">Apply</button>
+			</div>	
+		</div>
+		<br>
+
+		<div>
+			<h1>まとめ</h1>
+		</div>
+
+
+	<script src="three.min.js"></script>
+	<script src="TrackballControls.js"></script>
+	<script src="Lut.js"></script>
+	<script src="KVS.min.js"></script>
+	<script src="KVS2THREE.min.js"></script>
+	<script src="http://naohisas.github.io/KVS.js/Source/KVSLobsterData.js"></script>
+
+	<script type="x-shader/x-vertex" id="phong.vert">
+	 varying vec4 point_position;
+	 varying vec3 normal_vector;
+
+	 void main()
+	 {
+	     point_position = modelViewMatrix * vec4( position, 1.0 );
+	     normal_vector = normalMatrix * normal;
+
+	     gl_Position = projectionMatrix * point_position;
+	 }
+	</script>
+
+	<script type="x-shader/x-fragment" id="phong.frag">
+	 varying vec4 point_position;
+	 varying vec3 normal_vector;
+	 uniform vec3 point_color;
+	 uniform vec3 light_position;
+	 uniform vec3 camera_position;
+	 uniform float reflection_model;
+	 uniform float ka;
+	 uniform float kd;
+	 uniform float ks;
+	 uniform float n;
+	 uniform float m;
+	 uniform float f;
+
+
+	 vec3 LambertianReflection( vec3 C, vec3 L, vec3 N )
+	 {
+	     // float ka = 0.5;
+	     // float kd = 0.1;
+
+	     float dd = dot( N, L );
+	     float Ia = ka;
+	     float Id = kd * dd;
+             return C * ( Ia + Id );
+	 }
+
+	 vec3 PhongReflection( vec3 C, vec3 L, vec3 N, vec3 V )
+	 {
+	     // float ka = 0.3;
+	     // float kd = 0.5;
+	     // float ks = 0.8;
+	     // float n = 50.0;
+
+	     vec3 R = reflect( -L, N );
+	     float dd = dot( N, L );
+	     float ds = 0.0;
+	     if ( dd > 0.0 )
+	     {
+		 ds = pow( dot( R, V ), n );
+	     }
+
+	     float Ia = ka;
+	     float Id = kd * dd;
+	     float Is = ks * ds;
+	     return C * ( Ia + Id + Is );
+	 }
+
+	 vec3 BlinnPhongReflection( vec3 C, vec3 L, vec3 N, vec3 V )
+	 {
+	     // float ka = 0.3;
+	     // float kd = 0.5;
+	     // float ks = 0.8;
+	     // float n = 50.0;
+
+	     vec3 H = normalize( L + V );
+	     float dd = dot( N, L );
+	     float ds = 0.0;
+	     if ( dd > 0.0 )
+	     {
+		 ds = pow( dot( H, N ), n );
+	     }
+
+	     float Ia = ka;
+	     float Id = kd * dd;
+	     float Is = ks * ds;
+	     return C * ( Ia + Id + Is );
+	 }
+
+	 vec3 CookTorranceReflection( vec3 C, vec3 L, vec3 N, vec3 V )
+	 {
+	     // float ka = 0.3;
+	     // float kd = 0.5;
+	     // float ks = 0.8;
+	     // float m = 0.2; // roughness. [0:smooth, 1:rough]
+	     // float f = 0.2;
+
+	     float dd = dot( N, L );
+	     float ds = 0.0;
+	     if ( dd > 0.0 )
+	     {
+		 vec3 H = normalize( L + V );
+		 float NL = dd;
+		 float NH = dot( N, H );
+		 float NV = dot( N, V );
+		 float VH = dot( V, H );
+
+		 // Beckmann distribution
+		 float NH2 = NH * NH;
+		 float NH4 = NH2 * NH2;
+		 float D = ( 1.0 / ( 4.0 * m * m * NH4 ) ) * exp( ( NH2 - 1.0 ) / ( m * m * NH2 ) );
+
+		 // Geometrical attenuation factor
+		 float G = min( 1.0, min( 2.0 * NH * NV / VH, 2.0 * NH * NL / VH ) );
+
+		 // Fresnel term
+		 float n = ( 1.0 + sqrt( f ) ) / ( 1.0 - sqrt( f ) );
+		 float c = VH;
+		 float g = sqrt( n * n + c * c - 1.0 );
+		 float gc0 = g - c;
+		 float gc1 = g + c;
+		 float cgc0 = c * gc1 - 1.0;
+		 float cgc1 = c * gc0 + 1.0;
+		 float f0 = ( gc0 * gc0 ) / ( gc1 * gc1 );
+		 float f1 = 1.0 + ( cgc0 / cgc1 ) * ( cgc0 / cgc1 );
+		 float F = 0.5 * f0 * f1;
+
+		 // Specular component
+		 ds = ( F / 3.14159265 ) * ( D * G / ( NL * NV ) );
+	     }
+
+	     float Ia = ka;
+	     float Id = kd * dd;
+	     float Is = ks * ds;
+	     return C * ( Ia + Id + Is );
+	 }
+
+	 void main()
+	 {
+	     vec3 C = point_color;
+	     vec3 L = normalize( light_position - point_position.xyz );
+	     vec3 N = normalize( normal_vector );
+	     vec3 V = normalize( camera_position - point_position.xyz );
+
+	     #if defined( Lambert )
+	     vec3 shaded_color = LambertianReflection( C, L, N );
+	     #elif defined( Phong )
+	     vec3 shaded_color = PhongReflection( C, L, N, V );
+	     #elif defined( BlinnPhong )
+	     vec3 shaded_color = BlinnPhongReflection( C, L, N, V );
+	     #elif defined( CookTrrance )
+	     vec3 shaded_color = CookTorranceReflection( C, L, N, V );
+	     #else
+	     vec3 shaded_color = C;
+	     #endif
+
+	     gl_FragColor = vec4( shaded_color, 1.0 );
+	 }
+	</script>
+
+	<script src="Bounds.js"></script>
+	<script src="SlicePlane.js"></script>
+	<script src="Isosurfaces.js"></script>
+	<script src="FinalTask.js"></script>
+	<script>
+	 main();
+	</script>
+    </body>
+</html>

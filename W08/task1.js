@@ -1,6 +1,6 @@
 function main()
 {
-    var volume = new KVS.LobsterData();
+    var volume = new FinalTaskData();
     var screen = new KVS.THREEScreen();
 
     screen.init( volume, {
